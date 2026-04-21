@@ -2,6 +2,12 @@
 @model Record_Villacino.Areas.Identity.Pages.Account.Manage.IndexModel
 @{
   ViewData["Title"] = "Manage Profile";
+  var errors = ViewData.ModelState.Values
+    .SelectMany(entry => entry.Errors)
+    .Select(error => error.ErrorMessage)
+    .Where(message => !string.IsNullOrWhiteSpace(message))
+    .Distinct()
+    .ToList();
 }
 
 <section class="manage-grid">
@@ -17,7 +23,16 @@
     }
 
     <form method="post" data-loading-form="true">
-      <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
+      @Html.AntiForgeryToken()
+      @if (errors.Count > 0) {
+        <div class="alert alert-danger py-2" role="alert">
+          <ul class="mb-0 ps-3">
+            @foreach (var error in errors) {
+              <li>@error</li>
+            }
+          </ul>
+        </div>
+      }
 
       <div class="mb-3">
         <label class="form-label">Email</label>

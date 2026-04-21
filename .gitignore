@@ -3,6 +3,7 @@ bin/
 obj/
 temp_obj/
 TestResults/
+build_verify/
 
 # Visual Studio / IDE
 .vs/
