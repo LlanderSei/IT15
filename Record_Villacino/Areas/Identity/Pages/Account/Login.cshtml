@@ -1,0 +1,73 @@
+@page
+@model Record_Villacino.Areas.Identity.Pages.Account.LoginModel
+@{
+  ViewData["Title"] = "Login";
+}
+
+<section class="identity-wrapper">
+  <aside class="identity-panel">
+    <span class="eyebrow bg-white text-dark">Authentication</span>
+    <h1 class="display-6 fw-bold mt-3">Welcome back to Record Villacino.</h1>
+    <p class="mt-3 mb-4">
+      Sign in to manage your profile, review account settings, and access the customized Identity pages for this activity.
+    </p>
+    <ul class="identity-list">
+      <li>Responsive Bootstrap form layout</li>
+      <li>Validation feedback and helper text</li>
+      <li>Dynamic navigation for guests and members</li>
+    </ul>
+  </aside>
+
+  <div class="identity-card">
+    <span class="eyebrow">Login Form</span>
+    <h2 class="mt-3 mb-2">Account Sign In</h2>
+    <p class="text-secondary">Use your registered email and password to continue.</p>
+
+    <form id="account" method="post" data-loading-form="true">
+      @if (!ViewData.ModelState.IsValid) {
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
+      }
+
+      <div class="mb-3">
+        <label asp-for="Input.Email" class="form-label" data-bs-toggle="tooltip" title="Enter the email address used during registration">
+          <span class="form-icon">@@</span>Email Address
+        </label>
+        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+        <div class="field-hint mt-2">Use a valid email so the system can identify your account.</div>
+        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Input.Password" class="form-label" data-bs-toggle="tooltip" title="Password is case-sensitive">
+          <span class="form-icon">##</span>Password
+        </label>
+        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Enter your password" />
+        <div class="field-hint mt-2">Passwords are hidden for privacy and validated on submit.</div>
+        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="form-check">
+          <input class="form-check-input" asp-for="Input.RememberMe" />
+          <label class="form-check-label" asp-for="Input.RememberMe"></label>
+        </div>
+        <a asp-page="./ForgotPassword">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 rounded-pill py-3" data-loading-button="true">
+        <span class="spinner-border spinner-border-sm d-none me-2" aria-hidden="true"></span>
+        <span data-button-text>Login</span>
+        <span data-loading-text class="d-none">Signing in...</span>
+      </button>
+    </form>
+
+    <p class="text-secondary mt-4 mb-0">
+      No account yet?
+      <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create one here</a>.
+    </p>
+  </div>
+</section>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

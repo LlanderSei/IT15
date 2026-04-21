@@ -1,0 +1,78 @@
+@page
+@model Record_Villacino.Areas.Identity.Pages.Account.Manage.IndexModel
+@{
+  ViewData["Title"] = "Manage Profile";
+}
+
+<section class="manage-grid">
+  <div class="manage-section">
+    <span class="eyebrow">Profile</span>
+    <h1 class="mt-3">Manage your account</h1>
+    <p class="text-secondary">
+      Update your basic account information and keep your profile settings consistent with the rest of the custom Identity UI.
+    </p>
+
+    @if (!string.IsNullOrWhiteSpace(Model.StatusMessage)) {
+      <div class="alert alert-success" role="alert">@Model.StatusMessage</div>
+    }
+
+    <form method="post" data-loading-form="true">
+      <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input value="@Model.Username" class="form-control" disabled />
+      </div>
+
+      <div class="mb-4">
+        <label asp-for="Input.PhoneNumber" class="form-label" data-bs-toggle="tooltip" title="Optional contact number for your profile">
+          <span class="form-icon">PH</span>Phone Number
+        </label>
+        <input asp-for="Input.PhoneNumber" class="form-control" placeholder="09XXXXXXXXX" />
+        <div class="field-hint mt-2">Add or update your contact number if needed.</div>
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
+      </div>
+
+      <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" data-loading-button="true">
+        <span class="spinner-border spinner-border-sm d-none me-2" aria-hidden="true"></span>
+        <span data-button-text>Save Changes</span>
+        <span data-loading-text class="d-none">Saving...</span>
+      </button>
+    </form>
+  </div>
+
+  <aside class="manage-section">
+    <span class="eyebrow">Quick Links</span>
+    <h2 class="h4 mt-3">Account actions</h2>
+    <div class="manage-links mt-3">
+      <a asp-page="./Email">
+        <strong>Email Settings</strong>
+        <span>Update and confirm your email address.</span>
+      </a>
+      <a asp-page="./ChangePassword">
+        <strong>Change Password</strong>
+        <span>Replace your current password with a new one.</span>
+      </a>
+      <a asp-page="./TwoFactorAuthentication">
+        <strong>Two-Factor Authentication</strong>
+        <span>Review authenticator and recovery options.</span>
+      </a>
+      <a asp-page="./PersonalData">
+        <strong>Personal Data</strong>
+        <span>Download or delete your personal account data.</span>
+      </a>
+      <a asp-page="./ResetAuthenticator">
+        <strong>Reset Authenticator</strong>
+        <span>Restart authenticator setup if needed.</span>
+      </a>
+      <a asp-page="./SetPassword">
+        <strong>Set Password</strong>
+        <span>Create a local password if the account does not have one.</span>
+      </a>
+    </div>
+  </aside>
+</section>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,75 @@
+@page
+@model Record_Villacino.Areas.Identity.Pages.Account.RegisterModel
+@{
+  ViewData["Title"] = "Register";
+}
+
+<section class="identity-wrapper">
+  <aside class="identity-panel">
+    <span class="eyebrow bg-white text-dark">Register</span>
+    <h1 class="display-6 fw-bold mt-3">Create your student access account.</h1>
+    <p class="mt-3 mb-4">
+      The form below demonstrates simple but improved Bootstrap styling with placeholders, validation messages,
+      tooltips, and a loading state during submission.
+    </p>
+    <ul class="identity-list">
+      <li>Clean form spacing and rounded input controls</li>
+      <li>Inline hints for email and password rules</li>
+      <li>Consistent styling with the rest of the Identity pages</li>
+    </ul>
+  </aside>
+
+  <div class="identity-card">
+    <span class="eyebrow">Registration Form</span>
+    <h2 class="mt-3 mb-2">Open a New Account</h2>
+    <p class="text-secondary">Fill out the required details to register in the portal.</p>
+
+    <form id="registerForm" method="post" data-loading-form="true">
+      @if (!ViewData.ModelState.IsValid) {
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
+      }
+
+      <div class="mb-3">
+        <label asp-for="Input.Email" class="form-label" data-bs-toggle="tooltip" title="This email becomes your username for login">
+          <span class="form-icon">@@</span>Email Address
+        </label>
+        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="student@example.com" />
+        <div class="field-hint mt-2">Use an active email address for your account record.</div>
+        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Input.Password" class="form-label" data-bs-toggle="tooltip" title="Use a strong password with letters, numbers, and symbols if possible">
+          <span class="form-icon">PW</span>Password
+        </label>
+        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Create a password" />
+        <div class="field-hint mt-2">Choose a password you can remember but others cannot guess easily.</div>
+        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-4">
+        <label asp-for="Input.ConfirmPassword" class="form-label" data-bs-toggle="tooltip" title="Re-enter the same password to confirm it">
+          <span class="form-icon">OK</span>Confirm Password
+        </label>
+        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm your password" />
+        <div class="field-hint mt-2">This helps prevent typing errors during account creation.</div>
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+      </div>
+
+      <button id="registerSubmit" type="submit" class="btn btn-primary w-100 rounded-pill py-3" data-loading-button="true">
+        <span class="spinner-border spinner-border-sm d-none me-2" aria-hidden="true"></span>
+        <span data-button-text>Register</span>
+        <span data-loading-text class="d-none">Creating account...</span>
+      </button>
+    </form>
+
+    <p class="text-secondary mt-4 mb-0">
+      Already registered?
+      <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in instead</a>.
+    </p>
+  </div>
+</section>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

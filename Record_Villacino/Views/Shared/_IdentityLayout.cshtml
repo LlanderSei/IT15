@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - Record_Villacino</title>
+  <script type="importmap"></script>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/Record_Villacino.styles.css" asp-append-version="true" />
+</head>
+<body class="identity-layout">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg px-3 px-lg-4 py-3">
+      <a class="navbar-brand site-brand" asp-area="" asp-controller="Home" asp-action="Index">
+        <span class="brand-mark">RV</span>
+        <span>
+          <strong>Identity Portal</strong>
+          <small>Simple activity UI</small>
+        </span>
+      </a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#identityNav" aria-controls="identityNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="identityNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+          </li>
+          @if (User.Identity?.IsAuthenticated ?? false) {
+            <li class="nav-item">
+              <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">Manage</a>
+            </li>
+          } else {
+            <li class="nav-item">
+              <a class="btn btn-sm btn-light rounded-pill px-3" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-sm btn-outline-light rounded-pill px-3" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+          }
+          @if (User.IsInRole("Admin")) {
+            <li class="nav-item">
+              <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">Admin Panel</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </nav>
+
+    <main class="py-4 py-lg-5">
+      @RenderBody()
+    </main>
+  </div>
+
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
